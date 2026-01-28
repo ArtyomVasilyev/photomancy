@@ -1,7 +1,7 @@
 # Photomancy Terms of Use & Privacy Policy
 
-**Effective Date:** January 24, 2026  
-**Last Updated:** January 24, 2026
+**Effective Date:** January 24, 2026
+**Last Updated:** January 28, 2026
 
 ---
 
@@ -22,6 +22,19 @@ We access data only when you use the App's features:
 |-----------|----------------|---------|
 | **Photos** | Individual photos randomly selected from your library | To generate oracle card readings |
 | **Photo Metadata** | Date, time, location (if available), favorite/edited status | To personalize your reading |
+| **Device Identifier** | A random unique ID stored securely on your device (iOS Keychain) | To enforce daily card limits and prevent abuse |
+| **Language Preference** | Your device's language setting | To generate readings in your language |
+| **Subscription Status** | Your current subscription tier | To determine daily card limits |
+
+### Device Identifier Compliance
+
+Our device identifier is **not device fingerprinting**. We comply with Apple's guidelines by:
+- Generating a random UUID (not derived from device characteristics)
+- Storing it securely in the iOS Keychain
+- Using it solely for rate limiting and abuse prevention
+- Never using it for advertising or cross-app tracking
+
+This approach is consistent with Apple's App Store Review Guidelines and does not violate Section 5.1.2 (Device Fingerprinting).
 
 ### Data We Do NOT Collect
 - We do **not** access your entire photo library
@@ -29,25 +42,37 @@ We access data only when you use the App's features:
 - We do **not** use analytics or tracking SDKs
 - We do **not** collect device identifiers for advertising
 - We do **not** use cookies or web tracking
+- We do **not** derive identifiers from device characteristics (no fingerprinting)
 
 ---
 
-## 3. Third-Party AI Services
+## 3. Third-Party Services
 
 ### Important Disclosure (Apple Guideline 5.1.2i)
 
-**Photomancy uses OpenAI's services to provide its core functionality. By using this App, you consent to the following data sharing:**
+**Photomancy uses third-party services to provide its core functionality. By using this App, you consent to the following data sharing:**
 
 | Service | Provider | Data Shared | Purpose |
 |---------|----------|-------------|---------|
-| GPT-4o Vision | OpenAI, Inc. | Your selected photo + metadata | Analyze photo and generate oracle interpretation |
-| DALL-E 3 | OpenAI, Inc. | Text prompt (no photo) | Generate mystical artwork for your card |
+| **Firebase Authentication** | Google LLC | Anonymous user ID only | Authenticate API requests and enforce rate limits |
+| **Firebase Cloud Functions** | Google LLC | Your selected photo + metadata (in transit only) | Securely process photos through our backend |
+| **GPT-4o Vision** | OpenAI, Inc. | Your selected photo + metadata | Analyze photo and generate oracle interpretation |
+| **DALL-E 3** | OpenAI, Inc. | Text prompt (no photo) | Generate mystical artwork for your card |
+| **Spotify** | Spotify AB | None from us | Song recommendations can open in Spotify (user choice) |
+| **Apple Music** | Apple Inc. | None from us | Song recommendations can open in Apple Music (user choice) |
 
 **What this means:**
-- When you generate a card, your selected photo is sent to OpenAI's servers in the United States
+- When you generate a card, your selected photo is sent to our secure Firebase backend, which then forwards it to OpenAI's services
+- Your photo passes through Google's Firebase infrastructure (encrypted in transit) but is **not stored** on our servers
 - OpenAI processes your photo to create your personalized reading
 - According to OpenAI's API Terms, data sent via their API is **not used to train their models**
-- OpenAI's Privacy Policy: [https://openai.com/privacy](https://openai.com/privacy)
+- Firebase stores only an anonymous user ID and a daily usage counter (see section 4)
+
+**Third-party privacy policies:**
+- Firebase/Google: [https://firebase.google.com/support/privacy](https://firebase.google.com/support/privacy)
+- OpenAI: [https://openai.com/privacy](https://openai.com/privacy)
+- Spotify: [https://www.spotify.com/privacy](https://www.spotify.com/privacy)
+- Apple Music: [https://www.apple.com/legal/privacy](https://www.apple.com/legal/privacy)
 
 **You can choose not to use this feature** — the App requires photo processing to function. If you do not consent, please do not use the App.
 
@@ -57,20 +82,41 @@ We access data only when you use the App's features:
 
 | Data | Storage Location | Retention |
 |------|------------------|-----------|
-| Generated oracle cards | Your device only (local) | Until you delete the App |
-| App preferences | Your device only (local) | Until you delete the App |
-| Photos sent to OpenAI | OpenAI servers | Up to 30 days per OpenAI's policy, then deleted |
+| **Generated oracle cards** | Your device only (local) | Until you delete the App |
+| **App preferences** | Your device only (local) | Until you delete the App |
+| **Anonymous user ID** | Firebase Authentication | Until you delete the App or uninstall |
+| **Daily usage counter** | Firebase Firestore | Forever (contains only: anonymous ID, date, count) |
+| **Device identifier** | Firebase Firestore | Forever (used to enforce rate limits across reinstalls) |
+| **Photos (in transit)** | Firebase/OpenAI servers | Not stored — processed and immediately discarded |
+| **Generated images** | OpenAI CDN | Up to 1 hour (temporary URLs), then deleted |
 
-**We do not operate servers that store your data.** All persistent data is stored locally on your device.
+**What we store in Firebase Firestore:**
+```
+users/{anonymous_user_id}/cards/{DD-MM-YYYY}
+  - count: 2 (how many cards generated today)
+  - lastGeneratedAt: timestamp
+
+devices/{device_identifier}
+  - lastGeneratedAt: timestamp (for rate limiting)
+```
+
+**What we DO NOT store:**
+- Your original photos (never saved to our servers)
+- Your generated oracle card images (only temporary URLs returned)
+- Any personally identifiable information
+- Your photo library contents
+
+**Important:** Once you delete the App, you will lose access to all your saved oracle cards. We cannot recover them because they are only stored on your device, not our servers.
 
 ---
 
 ## 5. International Data Transfers
 
-When you use Photomancy, your photo data is transferred to OpenAI's servers located in the United States. If you are located in the European Union, United Kingdom, or other regions with data protection laws, please be aware that:
+When you use Photomancy, your photo data is transferred to servers located in the United States. If you are located in the European Union, United Kingdom, or other regions with data protection laws, please be aware that:
 
-- Your data will be processed in the United States
-- OpenAI maintains appropriate safeguards for international transfers
+- Your data will be processed in the United States (Firebase servers and OpenAI servers)
+- Google (Firebase) and OpenAI maintain appropriate safeguards for international transfers
+- Your data is encrypted in transit using TLS/HTTPS
 - By using this App, you consent to this transfer
 
 ---
@@ -131,9 +177,10 @@ Photomancy is intended for users **13 years of age or older**. We do not knowing
 ## 9. Security
 
 We implement reasonable security measures:
-- Photos are transmitted to OpenAI over encrypted HTTPS connections
+- Photos are transmitted over encrypted HTTPS connections
 - Local data is stored in iOS's sandboxed app container
-- We do not store data on external servers
+- Device identifier is stored in iOS Keychain (Apple's secure credential storage)
+- We do not store photos or personal data on external servers
 
 ---
 
@@ -166,7 +213,7 @@ For transparency, here is how we categorize our data practices per Apple's requi
 | Photos | Yes | No | No |
 | Location (from photos) | Yes (if available) | No | No |
 | Usage Data | No | — | — |
-| Identifiers | No | — | — |
+| Identifiers | Yes (random device ID for rate limiting) | No | No |
 | Diagnostics | No | — | — |
 
 ---
