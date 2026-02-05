@@ -11,7 +11,7 @@ Welcome to Photomancy ("App," "we," "our," or "us"). This Privacy Policy describ
 
 Photomancy is a mystical photo oracle app that transforms your photos into personalized oracle card readings using artificial intelligence.
 
-By using Photomancy, you agree to the practices described in this Privacy Policy. Please also review our [Terms of Use](https://artyomvasilyev.github.io/photomancy/terms).
+By using Photomancy, you agree to the practices described in this Privacy Policy. Please also review the [Terms of Use (EULA)](https://www.apple.com/legal/internet-services/itunes/dev/stdeula/).
 
 ---
 
