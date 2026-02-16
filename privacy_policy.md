@@ -9,7 +9,7 @@
 
 Welcome to Photomancy ("App," "we," "our," or "us"). This Privacy Policy describes how we collect, use, and protect your information when you use our App.
 
-Photomancy is a mystical photo oracle app that transforms your photos into personalized oracle card readings using artificial intelligence.
+Photomancy is a photo memory app that transforms your photos into personalized artistic experiences using artificial intelligence.
 
 By using Photomancy, you agree to the practices described in this Privacy Policy. Please also review the [Terms of Use (EULA)](https://www.apple.com/legal/internet-services/itunes/dev/stdeula/).
 
@@ -22,10 +22,10 @@ We access data only when you use the App's features:
 
 | Data Type | What We Access | Purpose |
 |-----------|----------------|---------|
-| **Photos** | Individual photos randomly selected from your library | To generate oracle card readings |
-| **Photo Metadata** | Date, time, location (if available), favorite/edited status | To personalize your reading |
+| **Photos** | Individual photos randomly selected from your library | To generate personalized card reveals |
+| **Photo Metadata** | Date, time, location (if available), favorite/edited status | To personalize your reveal |
 | **Device Identifier** | A random unique ID stored securely on your device (iOS Keychain) | To enforce daily card limits and prevent abuse |
-| **Language Preference** | Your device's language setting | To generate readings in your language |
+| **Language Preference** | Your device's language setting | To generate reveals in your language |
 | **Subscription Status** | Your current subscription tier | To determine daily card limits |
 
 ### Device Identifier Compliance
@@ -58,7 +58,7 @@ This approach is consistent with Apple's App Store Review Guidelines and does no
 |---------|----------|-------------|---------|
 | **Firebase Authentication** | Google LLC | Anonymous user ID only | Authenticate API requests and enforce rate limits |
 | **Firebase Cloud Functions** | Google LLC | Your selected photo + metadata (in transit only) | Securely process photos through our backend |
-| **GPT-4o Vision** | OpenAI, Inc. | Your selected photo + metadata | Analyze photo and generate oracle interpretation |
+| **GPT-4o Vision** | OpenAI, Inc. | Your selected photo + metadata | Analyze photo and generate interpretation |
 | **DALL-E 3** | OpenAI, Inc. | Text prompt (no photo) | Generate mystical artwork for your card |
 | **Spotify** | Spotify AB | None from us | Song recommendations can open in Spotify (user choice) |
 | **Apple Music** | Apple Inc. | None from us | Song recommendations can open in Apple Music (user choice) |
@@ -66,7 +66,7 @@ This approach is consistent with Apple's App Store Review Guidelines and does no
 **What this means:**
 - When you generate a card, your selected photo is sent to our secure Firebase backend, which then forwards it to OpenAI's services
 - Your photo passes through Google's Firebase infrastructure (encrypted in transit) but is **not stored** on our servers
-- OpenAI processes your photo to create your personalized reading
+- OpenAI processes your photo to create your personalized reveal
 - According to OpenAI's API Terms, data sent via their API is **not used to train their models**
 - Firebase stores only an anonymous user ID and a daily usage counter (see section 4)
 
@@ -84,7 +84,7 @@ This approach is consistent with Apple's App Store Review Guidelines and does no
 
 | Data | Storage Location | Retention |
 |------|------------------|-----------|
-| **Generated oracle cards** | Your device only (local) | Until you delete the App |
+| **Generated cards** | Your device only (local) | Until you delete the App |
 | **App preferences** | Your device only (local) | Until you delete the App |
 | **Anonymous user ID** | Firebase Authentication | Until you delete the App or uninstall |
 | **Daily usage counter** | Firebase Firestore | Forever (contains only: anonymous ID, date, count) |
@@ -104,11 +104,11 @@ devices/{device_identifier}
 
 **What we DO NOT store:**
 - Your original photos (never saved to our servers)
-- Your generated oracle card images (only temporary URLs returned)
+- Your generated card images (only temporary URLs returned)
 - Any personally identifiable information
 - Your photo library contents
 
-**Important:** Once you delete the App, you will lose access to all your saved oracle cards. We cannot recover them because they are only stored on your device, not our servers.
+**Important:** Once you delete the App, you will lose access to all your saved cards. We cannot recover them because they are only stored on your device, not our servers.
 
 ---
 
@@ -143,7 +143,7 @@ Under the General Data Protection Regulation, you have the following rights:
 **Rights with limitations:**
 - **Data sent to OpenAI**: Once a photo is sent to OpenAI for processing, we cannot retrieve or delete it from their servers. According to OpenAI's data retention policy, API data is retained for up to 30 days for abuse monitoring, then automatically deleted. We do not have access to OpenAI's systems to request deletion on your behalf.
 
-**Legal Basis for Processing:** Consent — by choosing to generate an oracle card, you consent to your photo being processed by OpenAI.
+**Legal Basis for Processing:** Consent — by choosing to generate an card, you consent to your photo being processed by OpenAI.
 
 **Data Controller:** For local data, you control your own data on your device. For data processed by OpenAI, OpenAI acts as a data processor under their own policies.
 

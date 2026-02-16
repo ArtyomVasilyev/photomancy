@@ -19,22 +19,22 @@ We typically respond within 24-48 hours.
 ### Getting Started
 
 **How does Photomancy work?**
-Each day, Photomancy randomly selects a photo from your library and transforms it into a personalized oracle card with a unique reading, mystical artwork, and song recommendation.
+Each day, Photomancy randomly selects a photo from your library and transforms it into a personalized card with unique mystical artwork, an interpretation, and a song recommendation.
 
 **Why does the app need photo access?**
-Photomancy needs access to your photos to create personalized readings from your memories. We only access one random photo at a time and never browse or store your photo library.
+Photomancy needs access to your photos to create personalized experiences from your memories. We only access one random photo at a time and never browse or store your photo library.
 
-### Daily Readings
+### Daily Reveals
 
-**How often can I get a new reading?**
+**How often can I get a new reveal?**
 - **Basic subscribers:** 1 card per day (24-hour cooldown)
 - **Premium subscribers:** 2 cards per day (12-hour cooldown)
 
 **When does my daily card reset?**
-Your cooldown timer starts after each card generation. Check the timer in the app header to see when your next reading is available.
+Your cooldown timer starts after each card generation. Check the timer in the app header to see when your next reveal is available.
 
 **Can I choose which photo to use?**
-No, the oracle randomly selects a photo from your library. This randomness is part of the mystical experience.
+No, the app randomly selects a photo from your library. This randomness is part of the surprise experience.
 
 ### Subscription & Billing
 
@@ -88,10 +88,10 @@ Tap the share button in the top right corner of your card to share to Instagram 
 Your photo is sent securely to our servers only during card generation, then immediately discarded. We never store your photos.
 
 **Where are my cards saved?**
-All your oracle cards are stored locally on your device, not on our servers.
+All your cards are stored locally on your device, not on our servers.
 
 For more details, see our [Privacy Policy](https://artyomvasilyev.github.io/photomancy/privacy_policy).
 
 ---
 
-*Photomancy is for entertainment purposes only. Oracle readings do not constitute professional advice.*
+*Photomancy is for entertainment purposes only.*
